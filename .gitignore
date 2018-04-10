@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+*.pid
+.env
+env.list
+!env.list.sample

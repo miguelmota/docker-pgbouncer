@@ -1,0 +1,3 @@
+{{$user := (getenv "POSTGRES_USER")}}
+{{$password := (getenv "POSTGRES_PASS")}}
+{{printf "%q %q" $user $password}}

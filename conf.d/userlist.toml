@@ -1,0 +1,6 @@
+[template]
+src = "userlist.txt.tmpl"
+dest = "/etc/pgbouncer/userlist.txt"
+owner = "pgbouncer"
+mode = "0644"
+keys = []
