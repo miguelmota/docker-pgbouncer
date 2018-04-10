@@ -21,8 +21,10 @@ docker run --env-file=env.list pgbouncer
 - `POSTGRES_USER`
 - `POSTGRES_PASS`
 
+Connect to pgbouncer
+
 ```bash
-PGPASSWORD=<pg_password> psql -h <docker_ip> -p <pg_port> -U <pg_username> <pg_dbname>
+PGPASSWORD=<pg_password> psql -h <docker_ip> -p 6432 -U <pg_username> <pg_dbname>
 ```
 
 ## Resources
