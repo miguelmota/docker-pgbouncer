@@ -1,6 +1,0 @@
-[template]
-src = "db.ini.tmpl"
-dest = "/etc/pgbouncer/db.ini"
-owner = "pgbouncer"
-mode = "0644"
-keys = []

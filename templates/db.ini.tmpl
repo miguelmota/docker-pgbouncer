@@ -1,5 +1,0 @@
-{{$user := (or (getenv "POSTGRES_USER") "postgres")}}
-{{$password := (or (getenv "POSTGRES_PASS") "")}}
-{{$host := (or (getenv "POSTGRES_HOST") "127.0.0.1")}}
-{{$port := (or (getenv "POSTGRES_PORT") "5432")}}
-{{printf "* = host=%s port=%s" $host $port}}

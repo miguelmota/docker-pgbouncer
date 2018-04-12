@@ -1,3 +1,16 @@
+{{$user := (or (getenv "POSTGRES_USER") "postgres")}}
+{{$password := (or (getenv "POSTGRES_PASS") "")}}
+{{$host := (or (getenv "POSTGRES_HOST") "127.0.0.1")}}
+{{$port := (or (getenv "POSTGRES_PORT") "5432")}}
+
+{{$max_client_connections := (or (getenv "MAX_CLIENT_CONNECTIONS") "100")}}
+{{$default_pool_size := (or (getenv "DEFAULT_POOL_SIZE") "20")}}
+{{$max_db_connections := (or (getenv "MAX_DB_CONNECTIONS") "0")}}
+{{$max_user_connections := (or (getenv "MAX_USER_CONNECTIONS") "0")}}
+{{$min_pool_size := (or (getenv "MIN_POOL_SIZE") "0")}}
+{{$reserve_pool_size := (or (getenv "RESERVE_POOL_SIZE") "0")}}
+{{$reserve_pool_timeout := (or (getenv "RESERVE_POOL_TIMEOUT") "0")}}
+
 ;; database name = connect string
 ;;
 ;; connect string params:
@@ -6,7 +19,7 @@
 ;;   pool_size= connect_query=
 ;;   auth_user=
 [databases]
-%include /etc/pgbouncer/db.ini
+{{printf "* = host=%s port=%s" $host $port}}
 ;* = auth_user=
 
 ; foodb over Unix socket
@@ -167,7 +180,7 @@ server_reset_query = DISCARD ALL
 ; in startup packet.  Newer JDBC versions require the
 ; extra_float_digits here.
 ;
-;ignore_startup_parameters = extra_float_digits
+ignore_startup_parameters = extra_float_digits
 
 ;
 ; When taking idle server into use, this query is ran first.
@@ -187,25 +200,25 @@ server_reset_query = DISCARD ALL
 ;;;
 
 ; total number of clients that can connect
-max_client_conn = 100
+{{printf "max_client_conn = %s" $max_client_connections}}
 
 ; default pool size.  20 is good number when transaction pooling
 ; is in use, in session pooling it needs to be the number of
 ; max clients you want to handle at any moment
-default_pool_size = 20
+{{printf "default_pool_size = %s" $default_pool_size}}
 
 ;; Minimum number of server connections to keep in pool.
-;min_pool_size = 0
+;{{printf "min_pool_size = %s" $min_pool_size}}
 
 ; how many additional connection to allow in case of trouble
-;reserve_pool_size = 0
+;{{printf "reserve_pool_size = %s" $reserve_pool_size}}
 
 ; if a clients needs to wait more than this many seconds, use reserve pool
-;reserve_pool_timeout = 5
+;{{printf "reserve_pool_timeout = %s" $reserve_pool_timeout}}
 
 ; how many total connections to a single database to allow from all pools
-;max_db_connections = 0
-;max_user_connections = 0
+{{printf "max_db_connections = %s" $max_db_connections}}
+{{printf "max_user_connections = %s" $max_user_connections}}
 
 ; If off, then server connections are reused in LIFO manner
 ;server_round_robin = 0
